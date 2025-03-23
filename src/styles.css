@@ -5,7 +5,7 @@ body {
     background-color: #535353;
 }
 
-.App {
+.app {
     max-width: 1024px;
     min-height: 100vh;
     margin: 0 auto;
@@ -14,48 +14,93 @@ body {
     box-shadow: 0 0 15px 5px #0000003b;
 }
 
-.App-head {
+.app__head {
   height: 80px;
   background: #f5f5f5;
 }
 
-.App-head h1 {
+.app__head h1 {
   margin: 0;
   padding: 20px 20px 10px;
 }
 
-.App-controls {
+.app__title {
+  font-size: 34px;
+  margin: 0;
+  padding: 20px 20px 10px;
+  color: rgba(107, 74, 203, 1);
+}
+
+.app__button {
+  width: 120px;
+  height: 45px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 30px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.app__button-add {
+  background: rgba(107, 74, 203, 1);
+}
+
+.app__button-delete {
+  background: rgb(226, 51, 95);
+}
+
+.app__controls {
   display: flex;
   justify-content: flex-end;
   padding: 20px;
 }
 
-.List-item {
+/* .list__item {
   border-bottom: 1px dashed #ccc;
-}
+}*/
 
-.Item {
+/* .app__list-box {
+  border: 1px 0 1px 0 solid #ccc;
+} */
+
+.app__list-item {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px dashed #ccc;
   transition: background-color 1s;
 }
 
-.Item_selected {
+.app__list-item_selected {
   background: #75aaf1;
   color: #fff;
   transition: background-color 1s;
 }
 
-.Item-code {
+.app__list-code {
   padding: 20px 10px 20px 20px;
 }
 
-.Item-title {
+.app__list-title {
+  display: flex;
+  font-size: 20px;
+  font-weight: 600;
+  align-items: center;
   width: 100%;
-  padding: 20px 10px;
+  padding: 20px 20px;
 }
 
-.Item-actions {
+.app__list-count {
+  font-size: 15px;
+  font-weight: 400;
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 10px;
+  color: #a39e9e;
+}
+
+.app__list-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
