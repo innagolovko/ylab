@@ -56,14 +56,6 @@ body {
   padding: 20px;
 }
 
-/* .list__item {
-  border-bottom: 1px dashed #ccc;
-}*/
-
-/* .app__list-box {
-  border: 1px 0 1px 0 solid #ccc;
-} */
-
 .app__list-item {
   display: flex;
   justify-content: flex-start;
@@ -98,6 +90,10 @@ body {
   justify-content: flex-start;
   margin-left: 10px;
   color: #a39e9e;
+}
+
+.app__list-count_selected {
+  color: #fff;
 }
 
 .app__list-actions {

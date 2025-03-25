@@ -6,6 +6,7 @@ class Store {
       nextCode: 1,
       usedCodes: new Set(), // Хранение использованных кодов
       ...initState,
+      // noAvailableCodes: false,
     };
     this.listeners = []; // Слушатели изменений состояния (по умолчанию пустой массив)
   }
@@ -37,31 +38,47 @@ class Store {
   }
 
   // Метод добавления новой записи
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [
-        ...this.state.list,
-        { code: Math.floor(Math.random() * 10) + 1, title: 'Новая запись' },
-      ],
-    });
-  }
+   addItem() {
+     const { list } = this.state;
+     // Создаём набор используемых кодов на основе текущего списка
+     const usedCodesSet = new Set(list.map(item => item.code));
+     const availableCodes = [];
+     for (let code = 1; code <= 10; code++) {
+       if (!usedCodesSet.has(code)) {
+         availableCodes.push(code);
+       }
+     }
+     // Если доступных кодов нет, выходим из функции
+     if (availableCodes.length === 0) {
+     // this.setState({ noAvailableCodes: true })
+       console.log('Нет доступных кодов для добавления.');
+       return;
+     }
+     const newCode = availableCodes[Math.floor(Math.random() * availableCodes.length)];
+     // Добавляем новый код к набору используемых кодов
+     usedCodesSet.add(newCode);
+     this.setState({
+       ...this.state,
+       list: [...this.state.list, { code: newCode, title: 'Новая запись' }],
+      // noAvailableCodes: false, // сбрасываем состояние при успешном добавлении
+     });
+   }
 
   // Метод удаления записи
   // @param code Код удаляемой записи
   deleteItem(code) {
-    const { list } = this.state;
+    const { list, usedCodes } = this.state;
     const newList = list.filter(item => item.code !== code);
-    // usedCodes.delete(code); // Удаляем код из использованных
+    usedCodes.delete(code); // Удаляем код из использованных
     this.setState({
       ...this.state,
       list: newList,
-      // usedCodes: usedCodes,
+      usedCodes: usedCodes,
     });
   }
 
   // Метод выделения записи
-  // @param code Код выделённой записи
+  // @param code - код выделённой записи
   selectItem(code) {
     const { list } = this.state;
     this.setState({
@@ -69,7 +86,7 @@ class Store {
       list: list.map(item => {
         // У найденной по code записи меняем свойство selected
         if (item.code === code) {
-          item.selected = !item.selected;
+          return { ...item, selected: !item.selected }; // Создаём новый объект
         }
         return item;
       }),

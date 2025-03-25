@@ -23,13 +23,8 @@ store.subscribe(() => {
     // while (document.body.lastElementChild) document.body.removeChild(document.body.lastElementChild);
     // Добавляем в body новый рендер приложения
     root.render(<App store={store} />);
-   // document.body.append(
-   //     App({store})
-   // );
 });
 
 // Первичный рендер приложения
     // const app = App({store});
     root.render(<App store={store} />);
-
-    // document.body.append(app);

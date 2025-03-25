@@ -1,12 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
-import { createElement } from './utils.js';
+// import { createElement } from './utils.js';
 import './styles.css';
 
 function App({ store }) {
   const [selectCode, setSelectCode] = useState(null);
   const [selectCount, setSelectCount] = useState ({});
-
   const handleItemClick = code => {
     if (selectCode === code) {
       setSelectCode(null);
@@ -16,8 +15,6 @@ function App({ store }) {
         ...prevCounts,
         [code]: (prevCounts[code] || 0) + 1
       }));
-      console.log(`Элемент ${code} был выбран ${selectCount[code] + 1} раз`);
-      console.log(selectCount);
     }
   };
 
@@ -45,8 +42,16 @@ function App({ store }) {
                 onClick={() => handleItemClick(item.code)}
               >
                 <div className="app__list-code">{item.code}</div>
-                <div className="app__list-title">{item.title}
-                <div className="app__list-count">| выбран:{selectCount[item.code] || 0}</div>
+                <div className="app__list-title">
+                  {item.title}
+                  <div
+                    className={
+                      'app__list-count' +
+                      (item.code === selectCode ? ' app__list-count_selected' : '')
+                    }
+                  >
+                    | выбран:{selectCount[item.code] || 0}
+                  </div>
                 </div>
                 <div className="app__list-actions">
                   <button
@@ -61,8 +66,9 @@ function App({ store }) {
           ))}
         </div>
       </div>
+       {/*div className="app__message">Нет доступных кодов для добавления.</div>*/}
     </div>
   );
-};
+}
 
 export default App;
