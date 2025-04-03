@@ -1,10 +1,3 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    background-color: #535353;
-}
-
 .app__button {
   width: 120px;
   height: 45px;
@@ -18,8 +11,4 @@ body {
 
 .app__button-delete {
   background: rgb(226, 51, 95);
-}
-
-.app__button-add {
-  background: rgba(107, 74, 203, 1);
 }

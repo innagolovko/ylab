@@ -1,17 +1,18 @@
+import React from 'react';
 import App from './app.jsx';
 import Store from './store.jsx';
-import React from 'react';
-import {createRoot} from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
+import { generateCode } from './utils.js';
 
 const store = new Store({
     list: [
-    {code: 1, title: 'Название элемента'},
-    {code: 2, title: 'Некий объект'},
-    {code: 3, title: 'Заголовок'},
-    {code: 4, title: 'Длинное название элемента'},
-    {code: 5, title: 'Запись'},
-    {code: 6, title: 'Шестая запись'},
-    {code: 7, title: 'Седьмая запись'},
+    {code: generateCode(), title: 'Название элемента'},
+    {code: generateCode(), title: 'Некий объект'},
+    {code: generateCode(), title: 'Заголовок'},
+    {code: generateCode(), title: 'Длинное название элемента'},
+    {code: generateCode(), title: 'Запись'},
+    {code: generateCode(), title: 'Шестая запись'},
+    {code: generateCode(), title: 'Седьмая запись'},
 ],
 });
 
@@ -19,12 +20,11 @@ const root = createRoot(document.getElementById('root'));
 
 // После создания экземпляра store подписываемся на его изменения методом subscribe
 store.subscribe(() => {
-    // Удаляем содержимое body
-    // while (document.body.lastElementChild) document.body.removeChild(document.body.lastElementChild);
+  console.log('-Перерендер-');
     // Добавляем в body новый рендер приложения
-    root.render(<App store={store} />);
+    root.render(<App store={store} />); // createElement('App', { store });
 });
 
 // Первичный рендер приложения
-    // const app = App({store});
+    console.log('-Первый рендер-');
     root.render(<App store={store} />);

@@ -1,0 +1,46 @@
+.app__list-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px dashed #ccc;
+  transition: background-color 1s;
+}
+
+.app__list-item_selected {
+  background: #75aaf1;
+  color: #fff;
+  transition: background-color 1s;
+}
+
+.app__list-code {
+  padding: 20px 10px 20px 20px;
+}
+
+.app__list-title {
+  display: flex;
+  font-size: 20px;
+  font-weight: 600;
+  align-items: center;
+  width: 100%;
+  padding: 20px 20px;
+}
+
+.app__list-count {
+  font-size: 15px;
+  font-weight: 400;
+ display: flex;
+  justify-content:center;
+  align-items: center;
+  margin-left: 10px;
+  color: #a39e9e;
+}
+
+.app__list-count_selected {
+  color: #fff;
+}
+
+.app__list-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 10px;
+}

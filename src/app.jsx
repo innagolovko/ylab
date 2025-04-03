@@ -1,73 +1,45 @@
-import React from 'react';
-import { useState } from 'react';
-// import { createElement } from './utils.js';
-import './styles.css';
+import React, { useCallback } from 'react';
+import { createElement } from './utils.js';
+import List from './components/list/list.jsx';
+import Controls from './components/controls/controls.jsx';
+import Head from './components/head/head.jsx';
+import PageLayout from './components/page-layout/page-layout.jsx';
+
+ // Приложение
+ // @param store - экземпляр класса Store
+ // @returns {React.ReactElement} Элемент приложения
 
 function App({ store }) {
-  const [selectCode, setSelectCode] = useState(null);
-  const [selectCount, setSelectCount] = useState ({});
-  const handleItemClick = code => {
-    if (selectCode === code) {
-      setSelectCode(null);
-    } else {
-      setSelectCode(code);
-      setSelectCount(prevCounts => ({
-        ...prevCounts,
-        [code]: (prevCounts[code] || 0) + 1
-      }));
-    }
-  };
-
- // Достаём list из store методом getState
+  console.log('App');
+  // Достаём list из store методом getState
   const list = store.getState().list;
 
+  // Функция callback
+  /*const onDeleteItem = useCallback((code) => {
+      store.deleteItem(code);
+    }, [store]),*/
+
+  // Объединяем функции в один callbacks
+  const callbacks = {
+    onDeleteItem: useCallback((code) => {
+      store.deleteItem(code);
+    }, [store]),
+
+    onSelectItem: useCallback((code) => {
+      store.selectItem(code);
+    }, [store]),
+
+    onAddItem: useCallback(() => {
+      store.addItem();
+    }, [store]),
+  }
+
   return (
-    <div className="app">
-      <div className="app__head">
-        <h1 className="app__title">Приложение на чистом JS</h1>
-      </div>
-      <div className="app__controls">
-        <button className="app__button app__button-add" onClick={() => store.addItem()}>
-          Добавить
-        </button>
-      </div>
-      <div className="app__center">
-        <div className="app__list">
-          {list.map(item => (
-            <div key={item.code} className="app__list-box">
-              <div
-                className={
-                  'app__list-item' + (item.code === selectCode ? ' app__list-item_selected' : '')
-                }
-                onClick={() => handleItemClick(item.code)}
-              >
-                <div className="app__list-code">{item.code}</div>
-                <div className="app__list-title">
-                  {item.title}
-                  <div
-                    className={
-                      'app__list-count' +
-                      (item.code === selectCode ? ' app__list-count_selected' : '')
-                    }
-                  >
-                    | выбран:{selectCount[item.code] || 0}
-                  </div>
-                </div>
-                <div className="app__list-actions">
-                  <button
-                    className="app__button app__button-delete"
-                    onClick={() => store.deleteItem(item.code)}
-                  >
-                    Удалить
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-       {/*div className="app__message">Нет доступных кодов для добавления.</div>*/}
-    </div>
+    <PageLayout>
+      <Head title="Приложение на Java Script" />
+      <Controls onAdd={callbacks.onAddItem} />
+      <List list={list} onDeleteItem={callbacks.onDeleteItem} onSelectItem={callbacks.onSelectItem}/>
+    </PageLayout>
   );
 }
 

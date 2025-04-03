@@ -1,8 +1,7 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    background-color: #535353;
+.app__controls {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
 }
 
 .app__button {
@@ -14,10 +13,6 @@ body {
   border-radius: 30px;
   color: #fff;
   cursor: pointer;
-}
-
-.app__button-delete {
-  background: rgb(226, 51, 95);
 }
 
 .app__button-add {

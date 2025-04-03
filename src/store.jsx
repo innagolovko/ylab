@@ -1,3 +1,5 @@
+import { generateCode } from "./utils";
+
 // Хранилище состояния приложения
 class Store {
   constructor(initState = {}) {
@@ -50,17 +52,17 @@ class Store {
      }
      // Если доступных кодов нет, выходим из функции
      if (availableCodes.length === 0) {
-     // this.setState({ noAvailableCodes: true })
+       // this.setState({ noAvailableCodes: true })
        console.log('Нет доступных кодов для добавления.');
        return;
      }
-     const newCode = availableCodes[Math.floor(Math.random() * availableCodes.length)];
+     /*const newCode = availableCodes[Math.floor(Math.random() * availableCodes.length)];
      // Добавляем новый код к набору используемых кодов
-     usedCodesSet.add(newCode);
+     usedCodesSet.add(newCode);*/
      this.setState({
        ...this.state,
-       list: [...this.state.list, { code: newCode, title: 'Новая запись' }],
-      // noAvailableCodes: false, // сбрасываем состояние при успешном добавлении
+       list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+       // noAvailableCodes: false, // сбрасываем состояние при успешном добавлении
      });
    }
 
@@ -80,15 +82,17 @@ class Store {
   // Метод выделения записи
   // @param code - код выделённой записи
   selectItem(code) {
-    const { list } = this.state;
+   // const { list } = this.state;
     this.setState({
       ...this.state,
-      list: list.map(item => {
+      list: this.state.list.map(item => {
         // У найденной по code записи меняем свойство selected
         if (item.code === code) {
-          return { ...item, selected: !item.selected }; // Создаём новый объект
+          return { ...item, selected: !item.selected,  // Создаём новый объект
+            count: item.selected ? item.count : item.count + 1 || 1, // Создаём счетчик
+           };
         }
-        return item;
+        return item.selected ? { ...item, selected: false } : item;
       }),
     });
   }
